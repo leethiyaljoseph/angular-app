@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 
 
@@ -221,11 +222,43 @@ onclick() {
   this.editingId = null; 
 }
 
+// deleteStudentRecord(studentRecord: studentsRecord): void {
+//   const index = this.studentRecords.indexOf(studentRecord);
+//   (confirm("Are you sure to delete?"))
+//     this.studentRecords.splice(index, 1);
+//   alert("Record deleted successfully")
+// }
+
 deleteStudentRecord(studentRecord: studentsRecord): void {
-  const index = this.studentRecords.indexOf(studentRecord);
-  (confirm("Are you sure to delete?"))
-    this.studentRecords.splice(index, 1);
-  alert("Record deleted successfully")
+  // SweetAlert2 confirmation dialog
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You will not be able to recover this record!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, keep it'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // User clicked 'Yes, delete it!'
+      const index = this.studentRecords.indexOf(studentRecord);
+      this.studentRecords.splice(index, 1);
+      
+      // Success notification
+      Swal.fire(
+        'Deleted!',
+        'Your record has been deleted.',
+        'success'
+      );
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      // User clicked 'No, keep it'
+      Swal.fire(
+        'Cancelled',
+        'Your record is safe :)',
+        'error'
+      );
+    }
+  });
 }
 
 getRankClass(studentRank: number){
