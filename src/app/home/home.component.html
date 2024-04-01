@@ -1,0 +1,119 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Student Management System</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEmployee" (click)="openAddModal()" type="button">Add Data</button>
+          </div>
+        </div>
+    </nav>
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+ 
+  </div>
+  <div class="panel-body">
+
+    <table class="table ">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Reg No</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col"> Mobile Number</th>
+            <th scope="col">Total Marks</th>
+            <th scope="col"> Rank</th>
+            <th scope="col">View</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let studentRecord of studentRecords ;let i=index">
+            
+            <th   [ngClass]="getRankClass(studentRecord.studentRank) + getStatusClass(studentRecord.studentRemarks)"scope="row">{{studentRecord.id}}</th>
+            <td   [ngClass]="getRankClass(studentRecord.studentRank) + getStatusClass(studentRecord.studentRemarks)"scope="row">{{studentRecord.studentRegNo}}</td>
+            <td   [ngClass]="getRankClass(studentRecord.studentRank) + getStatusClass(studentRecord.studentRemarks)"scope="row">{{studentRecord.studentFirstName}}</td>
+            <td   [ngClass]="getRankClass(studentRecord.studentRank) + getStatusClass(studentRecord.studentRemarks)"scope="row">{{studentRecord.studentLastName}}</td>
+            <td   [ngClass]="getRankClass(studentRecord.studentRank) + getStatusClass(studentRecord.studentRemarks)"scope="row">{{studentRecord.studentMobileNo}}</td>
+            <td   [ngClass]="getRankClass(studentRecord.studentRank) + getStatusClass(studentRecord.studentRemarks)"scope="row">{{studentRecord.studentTotalMarks }}</td>
+            <td   [ngClass]="getRankClass(studentRecord.studentRank) + getStatusClass(studentRecord.studentRemarks)"scope="row" >{{studentRecord.studentRank}}</td>
+             <td><button (click)="toggleVisibility(studentRecord)" mat-flat-button ng-readonly="!editing" data-bs-toggle="modal" data-bs-target="#addEmployee" ><mat-icon >visibility</mat-icon>
+            </button></td>
+            <td><button type="button" (click)="toggleEdit(studentRecord)" data-bs-toggle="modal" data-bs-target="#addEmployee"class="btn btn-outline-success">Edit</button>&nbsp;
+              <button type="button" (click)="deleteStudentRecord(studentRecord)"class="btn btn-outline-danger">Delete</button>
+             </td>
+          </tr>
+        </tbody>
+
+  <!-- Add student modal -->
+
+ <div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel"><b>Student Data</b></h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <form >
+
+              <div class="mb-3">
+                <label for="exampleInputPassword1"  class="form-label">Register Number</label>
+                <input type="number"  [ngClass]="{ 'bg-light': isViewing }" [(ngModel)]="studentRegNo" class="form-control" name="studentRegNo" id="exampleInputPassword1"   [readonly]="isViewing">
+              </div>
+
+                <div class="mb-3" >
+                  <label for="exampleInputEmail1" class="form-label" >First Name</label>
+                  <input type="text"  [ngClass]="{ 'bg-light': isViewing }" [(ngModel)]="studentFirstName" class="form-control" name="studentFirstName" placeholder="Enter your first name"   [readonly]="isViewing">
+                </div>
+
+                <div class="mb-3" >
+                  <label for="exampleInputEmail1"  class="form-label" >Last Name</label>
+                  <input type="text"  [ngClass]="{ 'bg-light': isViewing }" [(ngModel)]="studentLastName" class="form-control" name="studentLastName" placeholder="Enter your last name"   [readonly]="isViewing" > 
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputEmail1"class="form-label" >Mobile Number</label>
+                  <input type="email"  [ngClass]="{ 'bg-light': isViewing }"  [(ngModel)]="studentMobileNo" class="form-control" name="studentMobileNo"  placeholder="Enter your Mobile No"   [readonly]="isViewing" >
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputPassword1"  class="form-label">Total Marks</label>
+                  <input type="string"  [ngClass]="{ 'bg-light': isViewing }" [(ngModel)]="studentTotalMarks" class="form-control" name="studentTotalMarks" id="exampleInputPassword1"  [readonly]="isViewing">
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Rank</label>
+                  <input type="number"  [ngClass]="{ 'bg-light': isViewing }" [(ngModel)]="studentRank" class="form-control" name="studentRank" id="exampleInputPassword1"  [readonly]="isViewing">
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Student Status</label>
+                  <input type="text"  [ngClass]="{ 'bg-light': isViewing }" [(ngModel)]="studentStatus" class="form-control" name="studentStatus" id="exampleInputPassword1"  [readonly]="isViewing">
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Remarks</label>
+                  <input type="text"  [ngClass]="{ 'bg-light': isViewing }" [(ngModel)]="studentRemarks"class="form-control" name="studentRemarks" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Above Details Are Correct</label>
+                </div>
+                <button type="button" (click)="onclick()" class="btn btn-primary" *ngIf="!isViewing">Submit</button>
+
+              </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  

@@ -1,0 +1,42 @@
+<br>
+<h2><b>Services We Provide</b></h2>
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Options
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Home</a></li>
+      <li><a class="dropdown-item" href="#">Projects</a></li>
+      <li><a class="dropdown-item" href="#">Sign Up</a></li>
+    </ul>
+  </div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+
+            <input type="text" [(ngModel)]="userName" class="form-control" >
+            <button (click)="onclick()" class="btn btn-danger mt-3">Create User</button>
+
+            <table class="table table-bordered mt-3">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>User Name</th>
+                        <th>Delete User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of userList; index as userno">
+                        <td>{{userno + 1}}</td>
+                        <td>{{i}}</td>
+                        <td>
+                            <button (click)="ondelete()" class="btn btn-success">Remove User</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
